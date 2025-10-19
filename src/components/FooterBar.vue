@@ -9,6 +9,12 @@
 <script>
 export default {
   data() {
+    /**
+     * Returns an object containing the current year.
+     *
+     * @returns {Object} - an object containing the current year.
+     * @property {Number} year - the current year.
+     */
     return { year: new Date().getFullYear() };
   },
 };
@@ -17,7 +23,9 @@ export default {
 .footer-bar {
   background: #111;
   color: #fff;
-  padding: 0.9rem 0.75rem;
+  margin-top: auto; /* <-- pushes footer to bottom in the flex column */
+  width: 100%;
+
   .container {
     display: flex;
     justify-content: space-between;
