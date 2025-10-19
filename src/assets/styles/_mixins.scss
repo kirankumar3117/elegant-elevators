@@ -1,0 +1,5 @@
+@mixin card-style($radius: $radius-md, $shadow: $shadow-sm) {
+  background: #fff;
+  border-radius: $radius;
+  box-shadow: $shadow;
+}

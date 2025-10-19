@@ -1,0 +1,25 @@
+@import "./variables";
+@import "./layout";
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  margin: 0;
+  color: #222;
+}
+
+/* small helpers */
+.container {
+  padding: 1rem;
+}
+
+/* responsive adjustments */
+@media (max-width: 768px) {
+  .site-header .header-inner {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .home .hero {
+    flex-direction: column;
+  }
+}
