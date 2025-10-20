@@ -5,7 +5,6 @@ import Products from "../pages/Products.vue";
 import ProductDetails from "../pages/ProductDetails.vue";
 import ContactUs from "../pages/ContactUs.vue";
 import LaunchPage from "../pages/LaunchPage.vue";
-import component from "element-plus/es/components/tree-select/src/tree-select-option.mjs";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
@@ -21,7 +20,7 @@ const routes = [
   {
     path: "/launch",
     name: "Launch",
-    component: LaunchPage,
+    component: () => import("../pages/LaunchPage.vue"),
   },
 ];
 
