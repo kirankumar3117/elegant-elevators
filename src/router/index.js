@@ -18,5 +18,13 @@ const routes = [
   { path: "/contact", name: "ContactUs", component: ContactUs },
 ];
 
-const router = createRouter({ history: createWebHistory(), routes });
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+  // Default scroll behavior — always scroll to top on route change
+  scrollBehavior() {
+    return { top: 0, left: 0, behavior: "auto" };
+  },
+});
+
 export default router;

@@ -152,28 +152,36 @@
 import { ref } from "vue";
 import ProductCard from "../components/ProductCard.vue";
 import HeroCarousel from "../components/HeroCarousel.vue";
+import Controller1 from "../assets/images/controller-1.jpg";
+import Controller2 from "../assets/images/controller-2.jpg";
+import Controller3 from "../assets/images/controller-3.jpg";
+import LiftControler from "../assets/images/lift-controller.jpg";
+import ResidencialController from "../assets/images/residencial-lift-controller.jpg";
+import HotelController from "../assets/images/hotel-lift-controller.jpg";
+import HydralicController from "../assets/images/hydralic-controller.jpg";
+import IotController from "../assets/images/iot-controller.jpg";
+import ServiceController from "../assets/images/service-controller.jpg";
 import { useRouter } from "vue-router";
-
 const router = useRouter();
 
 /* hero items remain as before */
 const heroItems = [
   {
-    image: "https://placehold.co/1200x700?text=Elegant+Control+Panels+1",
+    image: Controller1,
     alt: "Elegant control panel overview",
     caption:
       "<strong>Robust Commercial Panels</strong><br/>Modular, service-friendly designs",
     target: { type: "products" },
   },
   {
-    image: "https://placehold.co/1200x700?text=IoT+Elevator+Monitoring",
+    image: Controller2,
     alt: "IoT elevator monitoring",
     caption:
       "<strong>Advanced IoT Panels</strong><br/>Predictive maintenance & analytics",
     target: { type: "products" },
   },
   {
-    image: "https://placehold.co/1200x700?text=Hotel+Lift+Panels",
+    image: Controller3,
     alt: "Hotel lift panels",
     caption:
       "<strong>Hotel & Residential</strong><br/>Quiet & guest-friendly operation",
@@ -196,7 +204,7 @@ const featured = ref([
     id: "commercial",
     title: "Commercial Lift controller Panels",
     short: "Robust, modular panels — service-friendly & scalable.",
-    image: "https://placehold.co/900x560?text=Commercial+Panel",
+    image: LiftControler,
     preview: [
       "https://placehold.co/1600x1000?text=Commercial+Panel+1",
       "https://placehold.co/1600x1000?text=Commercial+Panel+2",
@@ -212,7 +220,7 @@ const featured = ref([
     id: "residential",
     title: "Residential Lift controller Panels",
     short: "Compact units for quiet and efficient residential lifts.",
-    image: "https://placehold.co/900x560?text=Residential+Panel",
+    image: ResidencialController,
     preview: ["https://placehold.co/1600x1000?text=Residential+1"],
     features: ["Compact footprint", "Low-noise drive", "Energy-saving modes"],
     tag: "Compact",
@@ -221,7 +229,7 @@ const featured = ref([
     id: "hotel",
     title: "Hotel Lift controller Panels",
     short: "Smooth rides and premium guest-facing interfaces.",
-    image: "https://placehold.co/900x560?text=Hotel+Panel",
+    image: HotelController,
     preview: ["https://placehold.co/1600x1000?text=Hotel+1"],
     features: [
       "Smooth acceleration",
@@ -234,7 +242,7 @@ const featured = ref([
     id: "iot",
     title: "Advanced IoT Elevator Control Panels",
     short: "Smart connectivity, predictive maintenance and analytics.",
-    image: "https://placehold.co/640x420?text=IoT+Panels+(Coming+Soon)",
+    image: IotController,
     features: [
       "Remote telemetry & sensor health",
       "Predictive alerts for bearings & motors",
@@ -247,7 +255,7 @@ const featured = ref([
     id: "service",
     title: "Service Lift Controller Panels",
     short: "Rugged, utility-grade panels for service & goods lifts.",
-    image: "https://placehold.co/640x420?text=Service+Panel",
+    image: ServiceController,
     features: ["Simplified controls", "Maintenance mode", "Robust enclosure"],
     category: "service",
     comingSoon: false,
@@ -256,7 +264,7 @@ const featured = ref([
     id: "hydraulic",
     title: "Hydraulic Lift Controller Panels",
     short: "Powerful control unit optimized for hydraulic drives.",
-    image: "https://placehold.co/640x420?text=Hydraulic+Panel",
+    image: HydralicController,
     features: [
       "Hydraulic pump control",
       "Pressure & safety interlocks",

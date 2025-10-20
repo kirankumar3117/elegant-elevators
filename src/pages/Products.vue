@@ -71,126 +71,125 @@
     </div>
   </section>
 </template>
+<script setup>
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import LiftControler from "../assets/images/lift-controller.jpg";
+import ResidencialController from "../assets/images/residencial-lift-controller.jpg";
+import HotelController from "../assets/images/hotel-lift-controller.jpg";
+import HydralicController from "../assets/images/hydralic-controller.jpg";
+import IotController from "../assets/images/iot-controller.jpg";
+import ServiceController from "../assets/images/service-controller.jpg";
+const router = useRouter();
 
-<script>
-export default {
-  data() {
-    return {
-      q: "",
-      filter: "all",
-      products: [
-        {
-          id: "commercial",
-          title: "Commercial Lift Controller Panels",
-          short: "Robust, modular panels for medium-large elevator systems.",
-          image: "https://placehold.co/640x420?text=Commercial+Panel",
-          features: [
-            "Modular I/O & expandable slots",
-            "Built-in overload & safety diagnostics",
-            "Easy on-site servicing",
-          ],
-          category: "commercial",
-          comingSoon: false,
-        },
-        {
-          id: "residential",
-          title: "Residential Lift Controller Panels",
-          short: "Compact, low-noise controller for residential lifts.",
-          image: "https://placehold.co/640x420?text=Residential+Panel",
-          features: [
-            "Space-saving form factor",
-            "Low-noise motor control",
-            "Energy-efficient modes",
-          ],
-          category: "residential",
-          comingSoon: false,
-        },
-        {
-          id: "hydraulic",
-          title: "Hydraulic Lift Controller Panels",
-          short: "Powerful control unit optimized for hydraulic drives.",
-          image: "https://placehold.co/640x420?text=Hydraulic+Panel",
-          features: [
-            "Hydraulic pump control",
-            "Pressure & safety interlocks",
-            "Durable power stage",
-          ],
-          category: "hydraulic",
-          comingSoon: false,
-        },
-        {
-          id: "service",
-          title: "Service Lift Controller Panels",
-          short: "Rugged, utility-grade panels for service & goods lifts.",
-          image: "https://placehold.co/640x420?text=Service+Panel",
-          features: [
-            "Simplified controls",
-            "Maintenance mode",
-            "Robust enclosure",
-          ],
-          category: "service",
-          comingSoon: false,
-        },
-        {
-          id: "hotel",
-          title: "Hotel Lift Controller Panels",
-          short: "Guest-friendly interfaces and smooth ride tuning.",
-          image: "https://placehold.co/640x420?text=Hotel+Panel",
-          features: [
-            "Smooth acceleration profiles",
-            "Quiet operation",
-            "Guest mode features",
-          ],
-          category: "hotel",
-          comingSoon: false,
-        },
-        {
-          id: "iot",
-          title: "Advanced IoT Elevator Control Panels",
-          short: "Smart connectivity, predictive maintenance and analytics.",
-          image: "https://placehold.co/640x420?text=IoT+Panels+(Coming+Soon)",
-          features: [
-            "Remote telemetry & sensor health",
-            "Predictive alerts for bearings & motors",
-            "Cloud-based dashboard & analytics",
-          ],
-          category: "iot",
-          comingSoon: true,
-        },
-      ],
-    };
+// reactive state
+const q = ref("");
+const filter = ref("all");
+
+const products = ref([
+  {
+    id: "commercial",
+    title: "Commercial Lift Controller Panels",
+    short: "Robust, modular panels for medium-large elevator systems.",
+    image: LiftControler,
+    features: [
+      "Modular I/O & expandable slots",
+      "Built-in overload & safety diagnostics",
+      "Easy on-site servicing",
+    ],
+    category: "commercial",
+    comingSoon: false,
   },
-  computed: {
-    filtered() {
-      const q = this.q.trim().toLowerCase();
-      return this.products.filter((p) => {
-        const matchesFilter =
-          this.filter === "all" || p.category === this.filter;
-        const matchesQuery =
-          !q ||
-          p.title.toLowerCase().includes(q) ||
-          p.short.toLowerCase().includes(q) ||
-          (p.features && p.features.join(" ").toLowerCase().includes(q));
-        return matchesFilter && matchesQuery;
-      });
-    },
+  {
+    id: "residential",
+    title: "Residential Lift Controller Panels",
+    short: "Compact, low-noise controller for residential lifts.",
+    image: ResidencialController,
+    features: [
+      "Space-saving form factor",
+      "Low-noise motor control",
+      "Energy-efficient modes",
+    ],
+    category: "residential",
+    comingSoon: false,
   },
-  methods: {
-    view(id) {
-      // navigate to product details
-      this.$router.push({ name: "ProductDetails", params: { id } });
-    },
-    enquire(product) {
-      // simple behaviour: open contact page with query param
-      if (product.comingSoon) {
-        // fake notify behaviour — route to contact with notify query
-        this.$router.push({ path: "/contact", query: { notify: product.id } });
-      } else {
-        this.$router.push({ path: "/contact", query: { product: product.id } });
-      }
-    },
+  {
+    id: "hydraulic",
+    title: "Hydraulic Lift Controller Panels",
+    short: "Powerful control unit optimized for hydraulic drives.",
+    image: HotelController,
+    features: [
+      "Hydraulic pump control",
+      "Pressure & safety interlocks",
+      "Durable power stage",
+    ],
+    category: "hydraulic",
+    comingSoon: false,
   },
-};
+  {
+    id: "service",
+    title: "Service Lift Controller Panels",
+    short: "Rugged, utility-grade panels for service & goods lifts.",
+    image: HydralicController,
+    features: ["Simplified controls", "Maintenance mode", "Robust enclosure"],
+    category: "service",
+    comingSoon: false,
+  },
+  {
+    id: "hotel",
+    title: "Hotel Lift Controller Panels",
+    short: "Guest-friendly interfaces and smooth ride tuning.",
+    image: IotController,
+    features: [
+      "Smooth acceleration profiles",
+      "Quiet operation",
+      "Guest mode features",
+    ],
+    category: "hotel",
+    comingSoon: false,
+  },
+  {
+    id: "iot",
+    title: "Advanced IoT Elevator Control Panels",
+    short: "Smart connectivity, predictive maintenance and analytics.",
+    image: ServiceController,
+    features: [
+      "Remote telemetry & sensor health",
+      "Predictive alerts for bearings & motors",
+      "Cloud-based dashboard & analytics",
+    ],
+    category: "iot",
+    comingSoon: false,
+  },
+]);
+
+// computed filtered list
+const filtered = computed(() => {
+  const query = q.value.trim().toLowerCase();
+  return products.value.filter((p) => {
+    const matchesFilter = filter.value === "all" || p.category === filter.value;
+    const featuresText = (p.features || []).join(" ").toLowerCase();
+    const matchesQuery =
+      !query ||
+      p.title.toLowerCase().includes(query) ||
+      p.short.toLowerCase().includes(query) ||
+      featuresText.includes(query);
+    return matchesFilter && matchesQuery;
+  });
+});
+
+// methods
+function view(id) {
+  router.push({ name: "ProductDetails", params: { id } });
+}
+
+function enquire(product) {
+  if (product.comingSoon) {
+    router.push({ path: "/contact", query: { notify: product.id } });
+  } else {
+    router.push({ path: "/contact", query: { product: product.id } });
+  }
+}
 </script>
 
 <style lang="scss" scoped>

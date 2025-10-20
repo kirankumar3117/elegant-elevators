@@ -191,9 +191,14 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-
+import LiftControler from "../assets/images/lift-controller.jpg";
+import ResidencialController from "../assets/images/residencial-lift-controller.jpg";
+import HotelController from "../assets/images/hotel-lift-controller.jpg";
+import HydralicController from "../assets/images/hydralic-controller.jpg";
+import IotController from "../assets/images/iot-controller.jpg";
+import ServiceController from "../assets/images/service-controller.jpg";
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id || "commercial";
@@ -206,7 +211,7 @@ const productMap = {
     short:
       "Robust, modular panels — engineered for high-traffic installations.",
     long: "Commercial-grade elevator controller panels with modular I/O, redundant power options and advanced diagnostics. Suitable for medium to large installations and multi-lift configurations.",
-    image: "https://placehold.co/1600x1000?text=Commercial+Panel",
+    image: LiftControler,
     preview: [
       "https://placehold.co/1600x1000?text=Commercial+Panel+1",
       "https://placehold.co/1600x1000?text=Commercial+Panel+2",
@@ -255,7 +260,7 @@ const productMap = {
     title: "Residential Lift Controller Panels",
     short: "Compact, low-noise panels ideal for residential buildings.",
     long: "Space-saving controller units with enhanced noise suppression for comfortable residential ride experiences. Energy efficient modes and simple servicing.",
-    image: "https://placehold.co/1600x1000?text=Residential+Panel",
+    image: ResidencialController,
     preview: ["https://placehold.co/1600x1000?text=Residential+1"],
     category: "Residential",
     available: true,
@@ -293,7 +298,7 @@ const productMap = {
     title: "Hotel Lift Controller Panels",
     short: "Guest-friendly interfaces and smooth ride tuning.",
     long: "Designed for hospitality environments with quiet drive profiles, stylish interfaces and guest modes. Integration with access control systems supported.",
-    image: "https://placehold.co/1600x1000?text=Hotel+Panel",
+    image: HotelController,
     preview: ["https://placehold.co/1600x1000?text=Hotel+1"],
     category: "Hotel",
     available: true,
@@ -331,7 +336,7 @@ const productMap = {
     title: "Hydraulic Lift Controller Panels",
     short: "Powerful controls optimized for hydraulic drives.",
     long: "Optimized for hydraulic elevator systems with pressure sensor integration and safety interlocks. Rugged power stages and service-friendly layout.",
-    image: "https://placehold.co/1600x1000?text=Hydraulic+Panel",
+    image: HydralicController,
     preview: ["https://placehold.co/1600x1000?text=Hydraulic+1"],
     category: "Hydraulic",
     available: false,
@@ -366,7 +371,7 @@ const productMap = {
     title: "Service Lift Controller Panels",
     short: "Utility-grade panels for service/goods lifts.",
     long: "Simple, robust control units with maintenance-first design. Suitable for goods lifts, service elevators and cargo handling.",
-    image: "https://placehold.co/1600x1000?text=Service+Panel",
+    image: IotController,
     preview: ["https://placehold.co/1600x1000?text=Service+1"],
     category: "Service",
     available: true,
@@ -401,7 +406,7 @@ const productMap = {
     title: "IoT Elevator Control Panels",
     short: "Smart connectivity, predictive maintenance and analytics.",
     long: "Next-generation panels with telematics and cloud connectivity for asset health monitoring and predictive alerts. Ideal for large portfolios and managed buildings.",
-    image: "https://placehold.co/1600x1000?text=IoT+Panel",
+    image: ServiceController,
     preview: [
       "https://placehold.co/1600x1000?text=IoT+1",
       "https://placehold.co/1600x1000?text=IoT+2",
@@ -480,6 +485,9 @@ function openPreview(index = 0) {
 
 /* small UI state for FAQ */
 const openFaq = ref([]);
+onMounted(() => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
 </script>
 
 <style lang="scss" scoped>
