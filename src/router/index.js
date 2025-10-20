@@ -16,6 +16,11 @@ const routes = [
     props: true,
   },
   { path: "/contact", name: "ContactUs", component: ContactUs },
+  {
+    path: "/launch",
+    name: "Launch",
+    component: () => import("../pages/LaunchPage.vue"),
+  },
 ];
 
 const router = createRouter({
