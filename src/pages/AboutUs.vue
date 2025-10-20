@@ -5,27 +5,81 @@
       <div class="container hero-inner">
         <div class="hero-text">
           <h1>About Elegant Elevators</h1>
+
+          <!-- Expanded intro content -->
           <p class="lead">
-            Elegant Embedded (Elegant Elevators) engineers reliable,
-            safety-first elevator controller panels and smart IoT systems for
-            commercial, residential and hospitality markets. We combine
-            industrial-grade hardware with intuitive control software to keep
-            buildings moving.
+            Elegant Embedded (trading as <strong>Elegant Elevators</strong>)
+            designs and manufactures elevator controller panels and intelligent
+            IoT monitoring solutions for commercial, residential and hospitality
+            markets. Our systems focus on safety, uptime and ease of service —
+            combining rugged embedded hardware, industry-proven motor control
+            and cloud-enabled diagnostics.
           </p>
+
+          <p class="lead-extended">
+            We serve builders, facility managers and integrators across India
+            with standardized product lines and bespoke solutions. From compact
+            residential controllers to modular commercial panels and IoT
+            analytics for fleet maintenance — our goal is fewer callouts and
+            smoother building operations.
+          </p>
+
+          <!-- offerings & quick facts -->
+          <ul class="offerings" aria-hidden="true">
+            <li>Controller Panels — Commercial & Residential</li>
+            <li>Hydraulic & Service Lift Solutions</li>
+            <li>IoT Monitoring & Predictive Maintenance</li>
+            <li>Installation, Commissioning & Service</li>
+          </ul>
 
           <ul class="kpis" aria-hidden="true">
             <li><strong>15+</strong><span>Years experience</span></li>
             <li><strong>1000+</strong><span>Panels installed</span></li>
             <li><strong>Pan-India</strong><span>Service & support</span></li>
           </ul>
+
+          <!-- trust badges + CTAs -->
+          <div class="hero-meta">
+            <div class="badges" aria-hidden="true">
+              <div class="badge">ISO 9001 (Pending)</div>
+              <div class="badge">Field-tested</div>
+              <div class="badge">Service Network</div>
+            </div>
+
+            <div class="hero-ctas">
+              <a class="btn primary" href="tel:9396671541">Call: 93966 71541</a>
+              <router-link class="btn outline" to="/contact"
+                >Send enquiry</router-link
+              >
+            </div>
+          </div>
+
+          <!-- clients strip -->
+          <div class="clients" aria-hidden="true">
+            <img
+              src="https://placehold.co/120x40?text=Client+1"
+              alt="client-1"
+            />
+            <img
+              src="https://placehold.co/120x40?text=Client+2"
+              alt="client-2"
+            />
+            <img
+              src="https://placehold.co/120x40?text=Client+3"
+              alt="client-3"
+            />
+            <img
+              src="https://placehold.co/120x40?text=Client+4"
+              alt="client-4"
+            />
+          </div>
         </div>
 
+        <!-- Top image intentionally removed — kept here as comment if you want to re-enable later:
         <div class="hero-image" data-aos="zoom-in">
-          <img
-            src="https://placehold.co/720x440?text=Elegant+Panels"
-            alt="Elegant control panels"
-          />
+          <img src="https://placehold.co/720x440?text=Elegant+Panels" alt="Elegant control panels" />
         </div>
+        -->
       </div>
     </header>
 
@@ -125,32 +179,65 @@
       </ol>
     </section>
 
-    <!-- Team preview -->
+    <!-- Team preview (updated with provided names) -->
     <section class="team container" data-aos="fade-up">
       <h2>Leadership & Team</h2>
+
+      <p class="team-intro">
+        Our leadership blends deep embedded-systems experience with field
+        service expertise and customer-focused operations.
+      </p>
+
       <div class="team-grid">
         <div class="member" data-aos="zoom-in" data-aos-delay="60">
-          <img src="https://placehold.co/240x240?text=CEO" alt="CEO" />
-          <h4>Founder & CEO</h4>
-          <p>Product strategy & industry partnerships</p>
+          <img
+            src="https://placehold.co/240x240?text=K.Jagadeshwar+Reddy"
+            alt="K. Jagadeshwar Reddy"
+          />
+          <h4>K. Jagadeshwar Reddy</h4>
+          <p class="role">Chief Executive Officer (CEO)</p>
+          <p class="bio">
+            Leads company strategy, partnerships and business development with
+            decades of industry experience.
+          </p>
         </div>
 
         <div class="member" data-aos="zoom-in" data-aos-delay="120">
-          <img src="https://placehold.co/240x240?text=CTO" alt="CTO" />
-          <h4>Chief Technical Officer</h4>
-          <p>Hardware & firmware engineering</p>
+          <img
+            src="https://placehold.co/240x240?text=V.+Sandeep+Reddy"
+            alt="V. Sandeep Reddy"
+          />
+          <h4>V. Sandeep Reddy</h4>
+          <p class="role">Chief Technical Officer (CTO)</p>
+          <p class="bio">
+            Heads hardware and firmware architecture — responsible for product
+            engineering and technical direction.
+          </p>
         </div>
 
         <div class="member" data-aos="zoom-in" data-aos-delay="180">
-          <img src="https://placehold.co/240x240?text=OPS" alt="Operations" />
-          <h4>Head of Operations</h4>
-          <p>Installations & field service</p>
+          <img
+            src="https://placehold.co/240x240?text=I+Sankara+Rao"
+            alt="I Sankara Rao"
+          />
+          <h4>I Sankara Rao</h4>
+          <p class="role">Hardware Designer</p>
+          <p class="bio">
+            Expert in embedded hardware design and field-reliability testing.
+          </p>
         </div>
 
         <div class="member" data-aos="zoom-in" data-aos-delay="240">
-          <img src="https://placehold.co/240x240?text=SALES" alt="Sales" />
-          <h4>Sales & Support</h4>
-          <p>Customer success & enquiries</p>
+          <img
+            src="https://placehold.co/240x240?text=M+Achyuth+Reddy"
+            alt="M Achyuth Reddy"
+          />
+          <h4>M Achyuth Reddy</h4>
+          <p class="role">Operational Head & Sales</p>
+          <p class="bio">
+            Oversees operations, installations and customer success across
+            projects.
+          </p>
         </div>
       </div>
     </section>
@@ -158,11 +245,13 @@
     <!-- Contact CTA -->
     <section class="contact-cta container" data-aos="fade-up">
       <div class="cta-card">
-        <h3>Get a consultation or quotation</h3>
-        <p>
-          Contact our sales team to discuss your elevator project — panel
-          specifications, installation and ongoing maintenance.
-        </p>
+        <div>
+          <h3>Get a consultation or quotation</h3>
+          <p>
+            Contact our sales team to discuss your elevator project — panel
+            specifications, installation and ongoing maintenance.
+          </p>
+        </div>
         <div class="cta-actions">
           <a class="btn primary" href="tel:9396671541">Call: 9396671541</a>
           <router-link class="btn outline" to="/contact"
@@ -198,31 +287,49 @@ export default {
 /* HERO */
 .about-hero {
   padding: 2.2rem 0;
+  color: #000000;
+  width: 100%;
   .hero-inner {
     display: flex;
     gap: 1.6rem;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
   }
   .hero-text {
-    flex: 1 1 48%;
+    flex: 1 1 60%;
     min-width: 260px;
   }
   .hero-text h1 {
     margin: 0 0 0.6rem;
-    font-size: 1.6rem;
-    color: #fff;
+    font-size: 1.95rem;
+    color: #000000;
   }
   .lead {
-    color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 1rem;
+    color: rgba(0, 0, 0, 0.95);
+    margin-bottom: 0.6rem;
+    line-height: 1.45;
   }
-  .hero-image img {
-    width: 100%;
-    max-width: 720px;
-    border-radius: 10px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  .lead-extended {
+    color: rgba(0, 0, 0, 0.88);
+    margin-bottom: 0.75rem;
+    font-size: 0.98rem;
+  }
+
+  .offerings {
+    margin: 0 0 0.9rem;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .offerings li {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.92rem;
   }
   .kpis {
     display: flex;
@@ -244,9 +351,76 @@ export default {
       }
       span {
         font-size: 0.82rem;
-        opacity: 0.9;
+        opacity: 0.95;
       }
     }
+  }
+
+  .hero-meta {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .badges {
+    display: flex;
+    gap: 0.6rem;
+  }
+  .badge {
+    background: rgba(255, 255, 255, 0.06);
+    color: #030303;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 0.6rem;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.56rem 0.9rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .primary {
+    background: #f7b500;
+    color: #000;
+  }
+  .outline {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #000000;
+  }
+
+  .clients {
+    margin-top: 1.15rem;
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    img {
+      height: 36px;
+      width: auto;
+      opacity: 0.95;
+      filter: grayscale(0.05);
+      border-radius: 4px;
+      background: #fff2;
+      padding: 4px;
+    }
+  }
+
+  .hero-image img {
+    width: 100%;
+    max-width: 720px;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -337,6 +511,10 @@ export default {
   h2 {
     margin-bottom: 1rem;
   }
+  .team-intro {
+    color: #475569;
+    margin-bottom: 1rem;
+  }
   .team-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -354,12 +532,20 @@ export default {
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 0.6rem;
+      background: #f1f5f9;
     }
     h4 {
-      margin: 0.4rem 0 0.25rem;
+      margin: 0.4rem 0 0.12rem;
+      font-size: 1.02rem;
     }
-    p {
+    .role {
       margin: 0;
+      color: #0b6cff;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .bio {
+      margin-top: 0.5rem;
       color: #475569;
       font-size: 0.92rem;
     }
@@ -413,26 +599,30 @@ export default {
   .team .team-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .hero-image img {
-    max-width: 560px;
+  .hero-text {
+    flex: 1 1 100%;
   }
 }
 @media (max-width: 640px) {
   .hero-inner {
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 1rem;
   }
   .hero-text {
     text-align: left;
-  }
-  .hero-image img {
-    width: 100%;
   }
   .values .values-grid {
     grid-template-columns: 1fr;
   }
   .team .team-grid {
     grid-template-columns: 1fr;
+  }
+  .clients {
+    justify-content: flex-start;
+    gap: 0.4rem;
+    img {
+      height: 32px;
+    }
   }
 }
 </style>
