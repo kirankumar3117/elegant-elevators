@@ -38,7 +38,7 @@ function updateCountdown() {
   // target launch time: today 11:00 AM
   const now = new Date();
   const target = new Date();
-  target.setHours(7, 23, 0, 0);
+  target.setHours(11, 0, 0, 0);
 
   const diff = target - now;
 
