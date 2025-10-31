@@ -52,7 +52,7 @@
             </label>
 
             <label class="field">
-              <span class="label-text">Request type</span>
+              <span class="label-text">Product</span>
               <select v-model="form.type">
                 <option value="general">General enquiry</option>
                 <option value="quote">Request quote</option>

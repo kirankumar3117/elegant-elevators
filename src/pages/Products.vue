@@ -183,6 +183,8 @@ function view(id) {
   router.push({ name: "ProductDetails", params: { id } });
 }
 
+/*************  ✨ Windsurf Command ⭐  *************/
+/*******  8ef05981-07fc-4ce8-a262-cf84df2342e0  *******/
 function enquire(product) {
   if (product.comingSoon) {
     router.push({ path: "/contact", query: { notify: product.id } });

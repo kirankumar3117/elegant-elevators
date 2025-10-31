@@ -2,8 +2,7 @@
   <section
     class="product-details container"
     data-aos="fade-up"
-    aria-live="polite"
-    :style="{ marginTop: '10px' }"
+    style="padding-top: 30px"
   >
     <!-- Breadcrumb -->
     <el-breadcrumb separator="/">
@@ -16,21 +15,19 @@
     <div class="content">
       <!-- Image column -->
       <div class="image-col">
-        <!-- Element Plus image with multi-src preview (click -> fullscreen zoom) -->
         <el-image
           :src="product.image"
-          :preview-src-list="product.preview"
           fit="contain"
           class="big-img"
           alt="product image"
         />
 
         <!-- small thumbnails (click opens preview gallery) -->
-        <div
+        <!-- <div
           class="thumbs"
           v-if="product.preview && product.preview.length > 1"
         >
-          <!-- <button
+          <button
             v-for="(t, i) in product.preview"
             :key="i"
             class="thumb"
@@ -38,8 +35,8 @@
             :aria-label="`Open image ${i + 1}`"
           >
             <img :src="t" :alt="`${product.title} preview ${i + 1}`" />
-          </button> -->
-        </div>
+          </button>
+        </div> -->
       </div>
 
       <!-- Info column -->
@@ -58,6 +55,23 @@
             }}</span>
           </div>
         </div>
+
+        <!-- Application Areas -->
+        <section
+          class="section application-areas"
+          aria-labelledby="application-heading"
+        >
+          <h3 id="application-heading">Application Areas</h3>
+          <ul>
+            <li
+              v-for="(area, index) in product.applicationAreas"
+              :key="index"
+              class="highlighted-area"
+            >
+              {{ area }}
+            </li>
+          </ul>
+        </section>
 
         <!-- Overview -->
         <section class="section overview" aria-labelledby="overview-heading">
@@ -78,9 +92,9 @@
           <el-button type="primary" size="medium" @click="openEnquire"
             >Enquire</el-button
           >
-          <el-button type="text" size="medium" @click="scrollToSpecs"
+          <!-- <el-button type="text" size="medium" @click="scrollToSpecs"
             >View Specs</el-button
-          >
+          > -->
         </div>
 
         <!-- Related quick facts -->
@@ -117,7 +131,7 @@
 
     <!-- Downloads & FAQ -->
     <section class="extras container" data-aos="fade-up">
-      <div class="downloads">
+      <!-- <div class="downloads">
         <h3>Downloads</h3>
         <ul>
           <li v-for="(d, i) in product.downloads" :key="i">
@@ -126,7 +140,7 @@
             }}</a>
           </li>
         </ul>
-      </div>
+      </div> -->
 
       <div class="faq">
         <h3>FAQ</h3>
@@ -141,329 +155,137 @@
       </div>
     </section>
 
-    <!-- Related products (simple links) -->
+    <!-- Related products -->
     <section class="related container" data-aos="fade-up">
       <h3>You may also like</h3>
       <ul class="related-list">
         <li v-for="r in related" :key="r.id">
-          <router-link :to="{ name: 'ProductDetails', params: { id: r.id } }">{{
-            r.title
-          }}</router-link>
+          <router-link :to="{ name: 'ProductDetails', params: { id: r.id } }">
+            {{ r.title }}
+          </router-link>
         </li>
       </ul>
     </section>
 
     <!-- Enquiry dialog -->
     <el-dialog
-      :visible.sync="enquireOpen"
-      width="520px"
+      v-model="enquireOpen"
+      width="540px"
       :before-close="closeEnquire"
+      append-to-body
+      custom-class="ee-enquire-dialog-wrapper"
     >
       <template #title>Enquire about {{ product.title }}</template>
 
-      <div class="enquire-form">
-        <el-form :model="form" label-position="top">
-          <el-form-item label="Name">
+      <div class="enquire-dialog-body">
+        <!-- Selected Product Summary -->
+        <!-- <div class="enquiry-product-summary">
+          <img :src="product.image" alt="Product Image" class="product-thumb" />
+          <div class="product-info">
+            <h4>{{ product.title }}</h4>
+            <p>{{ product.short }}</p>
+          </div>
+        </div> -->
+
+        <el-divider></el-divider>
+
+        <!-- Enquiry Form -->
+        <el-form :model="form" label-position="top" class="enquiry-form">
+          <el-form-item label="Name" prop="name" :rules="nameRules">
             <el-input v-model="form.name" placeholder="Your name" />
           </el-form-item>
+
+          <el-form-item label="Phone Number" prop="phone" :rules="phoneRules">
+            <el-input
+              v-model="form.phone"
+              placeholder="Your phone number"
+              maxlength="10"
+              @input="handlePhoneInput"
+              clearable
+            />
+          </el-form-item>
+
           <el-form-item label="Email">
             <el-input v-model="form.email" placeholder="you@example.com" />
           </el-form-item>
-          <el-form-item label="Message">
-            <el-input
-              type="textarea"
-              v-model="form.message"
-              placeholder="Tell us about your project or ask a question"
-              :rows="4"
-            />
+
+          <el-form-item label="Company Name">
+            <el-input v-model="form.company" placeholder="Your company name" />
+          </el-form-item>
+
+          <!-- NEW ROW: Product being enquired -->
+          <el-form-item label="Product Enquiring About">
+            <el-select
+              v-model="form.product"
+              placeholder="Select Product"
+              disabled
+            >
+              <el-option :label="product.title" :value="product.title" />
+            </el-select>
           </el-form-item>
         </el-form>
       </div>
 
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closeEnquire">Cancel</el-button>
-        <el-button type="primary" @click="submitEnquiry"
-          >Send Enquiry</el-button
-        >
-      </span>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="closeEnquire">Cancel</el-button>
+          <el-button
+            type="primary"
+            :loading="isSubmitting"
+            @click="submitEnquiry"
+            >Send Enquiry</el-button
+          >
+        </div>
+      </template>
     </el-dialog>
   </section>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import LiftControler from "../assets/images/lift-controller.jpg";
-import ResidencialController from "../assets/images/residencial-lift-controller.jpg";
-import HotelController from "../assets/images/hotel-lift-controller.jpg";
-import HydralicController from "../assets/images/hydralic-controller.jpg";
-import IotController from "../assets/images/iot-controller.jpg";
-import ServiceController from "../assets/images/service-controller.jpg";
+import { productMap, relatedProducts } from "../data/productData.js";
+import emailjs from "emailjs-com";
+import { ElNotification } from "element-plus";
+
 const route = useRoute();
 const router = useRouter();
-const id = route.params.id || "commercial";
-
-/* productMap and product selection identical to previous version (omitted here for brevity in this snippet) */
-const productMap = {
-  commercial: {
-    id: "commercial",
-    title: "Commercial Lift Controller Panels",
-    short:
-      "Robust, modular panels — engineered for high-traffic installations.",
-    long: "Commercial-grade elevator controller panels with modular I/O, redundant power options and advanced diagnostics. Suitable for medium to large installations and multi-lift configurations.",
-    image: LiftControler,
-    preview: [
-      "https://placehold.co/1600x1000?text=Commercial+Panel+1",
-      "https://placehold.co/1600x1000?text=Commercial+Panel+2",
-    ],
-    category: "Commercial",
-    available: true,
-    warranty: "1 year standard",
-    installation: "On-site installation available",
-    support: "Pan-India support & SLAs",
-    features: [
-      "Modular I/O with hot-swap support",
-      "Advanced fault logging & diagnostics",
-      "Redundant PSU option",
-    ],
-    specs: {
-      "Power input": "220–240VAC, 50/60Hz",
-      "Control logic": "32-bit embedded MCU",
-      "Max floors supported": "64",
-      "Operating temperature": "-10°C to 55°C",
-      Enclosure: "IP54 / Powder-coated steel",
-    },
-    downloads: [
-      {
-        label: "Datasheet (PDF)",
-        url: "https://example.com/datasheet-commercial.pdf",
-      },
-      {
-        label: "Installation Guide",
-        url: "https://example.com/install-commercial.pdf",
-      },
-    ],
-    faq: [
-      {
-        q: "Does it support multiple lifts?",
-        a: "Yes — with optional master-slave configuration.",
-      },
-      {
-        q: "Can we integrate with BMS?",
-        a: "Yes — optional Modbus / BACnet gateways are available.",
-      },
-    ],
-  },
-
-  residential: {
-    id: "residential",
-    title: "Residential Lift Controller Panels",
-    short: "Compact, low-noise panels ideal for residential buildings.",
-    long: "Space-saving controller units with enhanced noise suppression for comfortable residential ride experiences. Energy efficient modes and simple servicing.",
-    image: ResidencialController,
-    preview: ["https://placehold.co/1600x1000?text=Residential+1"],
-    category: "Residential",
-    available: true,
-    warranty: "1 year standard",
-    installation: "Compact mounting options",
-    support: "Local support & maintenance",
-    features: [
-      "Low-noise motor control",
-      "Compact footprint",
-      "Energy-saving idle modes",
-    ],
-    specs: {
-      "Power input": "220–240VAC, 50Hz",
-      "Control logic": "16/32-bit MCU",
-      "Max floors supported": "16",
-      "Operating temperature": "-10°C to 50°C",
-      Enclosure: "IP20 / Mild steel",
-    },
-    downloads: [
-      {
-        label: "Datasheet",
-        url: "https://example.com/datasheet-residential.pdf",
-      },
-    ],
-    faq: [
-      {
-        q: "Is this suitable for home lifts?",
-        a: "Yes, designed for low-rise home and apartment lifts.",
-      },
-    ],
-  },
-
-  hotel: {
-    id: "hotel",
-    title: "Hotel Lift Controller Panels",
-    short: "Guest-friendly interfaces and smooth ride tuning.",
-    long: "Designed for hospitality environments with quiet drive profiles, stylish interfaces and guest modes. Integration with access control systems supported.",
-    image: HotelController,
-    preview: ["https://placehold.co/1600x1000?text=Hotel+1"],
-    category: "Hotel",
-    available: true,
-    warranty: "1 year standard",
-    installation: "Custom faceplate options",
-    support: "Hotel property support packages",
-    features: [
-      "Smooth acceleration profiles",
-      "Guest mode & access control",
-      "Custom faceplates",
-    ],
-    specs: {
-      "Power input": "220–240VAC, 50/60Hz",
-      "Control logic": "32-bit MCU",
-      "Max floors supported": "32",
-      "Operating temperature": "-5°C to 50°C",
-      Enclosure: "IP54 / Powder-coated steel",
-    },
-    downloads: [
-      {
-        label: "Hotel Datasheet",
-        url: "https://example.com/datasheet-hotel.pdf",
-      },
-    ],
-    faq: [
-      {
-        q: "Can we customise faceplates?",
-        a: "Yes — we offer custom finishes for faceplates.",
-      },
-    ],
-  },
-
-  hydraulic: {
-    id: "hydraulic",
-    title: "Hydraulic Lift Controller Panels",
-    short: "Powerful controls optimized for hydraulic drives.",
-    long: "Optimized for hydraulic elevator systems with pressure sensor integration and safety interlocks. Rugged power stages and service-friendly layout.",
-    image: HydralicController,
-    preview: ["https://placehold.co/1600x1000?text=Hydraulic+1"],
-    category: "Hydraulic",
-    available: false,
-    warranty: "1 year",
-    installation: "Industrial grade mounting",
-    support: "Service lift specialists",
-    features: [
-      "Hydraulic pump control",
-      "Pressure interlocks",
-      "Rugged power stage",
-    ],
-    specs: {
-      "Power input": "380–415VAC (3-phase)",
-      "Control logic": "Industrial-grade PLC option",
-      "Max floors supported": "12",
-      "Operating temperature": "-10°C to 50°C",
-      Enclosure: "IP65 / Stainless steel",
-    },
-    downloads: [
-      { label: "Hydraulic Guide", url: "https://example.com/hydraulic.pdf" },
-    ],
-    faq: [
-      {
-        q: "Is 3-phase required?",
-        a: "For large hydraulic pumps 3-phase is recommended.",
-      },
-    ],
-  },
-
-  service: {
-    id: "service",
-    title: "Service Lift Controller Panels",
-    short: "Utility-grade panels for service/goods lifts.",
-    long: "Simple, robust control units with maintenance-first design. Suitable for goods lifts, service elevators and cargo handling.",
-    image: IotController,
-    preview: ["https://placehold.co/1600x1000?text=Service+1"],
-    category: "Service",
-    available: true,
-    warranty: "1 year",
-    installation: "Utility mounting",
-    support: "Field service teams",
-    features: [
-      "Maintenance mode",
-      "Simple operator interface",
-      "Durable enclosure",
-    ],
-    specs: {
-      "Power input": "220–240VAC",
-      "Control logic": "Embedded MCU",
-      "Max floors supported": "8",
-      "Operating temperature": "-10°C to 50°C",
-      Enclosure: "IP54",
-    },
-    downloads: [
-      { label: "Service Panel PDF", url: "https://example.com/service.pdf" },
-    ],
-    faq: [
-      {
-        q: "Can this be used for goods elevators?",
-        a: "Yes, designed primarily for utility lifts.",
-      },
-    ],
-  },
-
-  iot: {
-    id: "iot",
-    title: "IoT Elevator Control Panels",
-    short: "Smart connectivity, predictive maintenance and analytics.",
-    long: "Next-generation panels with telematics and cloud connectivity for asset health monitoring and predictive alerts. Ideal for large portfolios and managed buildings.",
-    image: ServiceController,
-    preview: [
-      "https://placehold.co/1600x1000?text=IoT+1",
-      "https://placehold.co/1600x1000?text=IoT+2",
-      "https://placehold.co/1600x1000?text=IoT+3",
-    ],
-    category: "IoT",
-    available: false,
-    warranty: "1 year",
-    installation: "Cloud integration available",
-    support: "Analytics & support packages",
-    features: [
-      "Telemetry & health logs",
-      "Predictive failure alerts",
-      "Cloud dashboard",
-    ],
-    specs: {
-      "Power input": "220–240VAC",
-      Connectivity: "Ethernet / LTE / Wi-Fi (optional)",
-      "Data export": "MQTT / REST / CSV",
-      "Operating temperature": "-5°C to 50°C",
-      Enclosure: "IP54",
-    },
-    downloads: [
-      { label: "IoT Whitepaper", url: "https://example.com/iot.pdf" },
-    ],
-    faq: [
-      {
-        q: "What protocols are supported?",
-        a: "MQTT, RESTful APIs and CSV export supported.",
-      },
-    ],
-  },
-};
-
-/* selected product */
-const product = productMap[id] || {
-  title: "Product",
-  short: "Details coming soon",
-  image: "https://placehold.co/1600x1000?text=Product",
-  preview: ["https://placehold.co/1600x1000?text=Product+1"],
-  features: [],
-  specs: {},
-  downloads: [],
-  faq: [],
-};
-
-/* related products (simple list) */
-const related = Object.values(productMap)
-  .filter((p) => p.id !== product.id)
-  .slice(0, 4);
-
-/* enquiry dialog state */
+const isSubmitting = ref(false);
 const enquireOpen = ref(false);
-const form = ref({ name: "", email: "", message: "", product: product.id });
+const form = ref({
+  name: "",
+  phone: "",
+  email: "",
+  company: "",
+  product: "",
+});
+const openFaq = ref([]);
+
+const id = route.params.id || "commercial";
+const product = ref({});
+const related = ref([]);
+
+const nameRules = [
+  { required: true, message: "Please enter your name", trigger: "blur" },
+];
+const phoneRules = [
+  {
+    required: true,
+    message: "Please enter your phone number",
+    trigger: "blur",
+  },
+  {
+    pattern: /^[0-9]{10}$/,
+    message: "Phone number must be exactly 10 digits",
+    trigger: ["blur", "change"],
+  },
+];
+
+const safeString = (v) =>
+  v === null || v === undefined || v === "" ? "-" : String(v);
 
 function openEnquire() {
-  form.value.product = product.id;
+  form.value.product = product.value.title; // auto-fill selected product
   enquireOpen.value = true;
 }
 
@@ -471,21 +293,69 @@ function closeEnquire() {
   enquireOpen.value = false;
 }
 
+function handlePhoneInput(value) {
+  // Remove all non-numeric characters
+  form.value.phone = value.replace(/\D/g, "").slice(0, 10);
+}
+
 function submitEnquiry() {
-  console.log("Enquiry submitted", form.value);
-  enquireOpen.value = false;
-  alert("Thank you — your enquiry has been sent. We will contact you shortly.");
-}
+  // Validation
+  if (!form.value.name || !form.value.phone) {
+    ElNotification({
+      title: "Missing Details",
+      message: "Name and phone number are required.",
+      type: "warning",
+    });
+    return;
+  }
 
-/* image preview: clicking a thumbnail triggers Element Plus preview via main image click */
-function openPreview(index = 0) {
-  const main = document.querySelector(".big-img .el-image__img");
-  if (main) main.click();
-}
+  // Build sanitized params
+  const templateParams = {
+    from_name: safeString(form.value.name),
+    from_phone: safeString(form.value.phone),
+    from_email: safeString(form.value.email),
+    from_company: safeString(form.value.company),
+    product: safeString(product.value?.title || ""),
+  };
 
-/* small UI state for FAQ */
-const openFaq = ref([]);
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const ADMIN_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+  // 1️⃣ Always send admin email
+  emailjs
+    .send(SERVICE_ID, ADMIN_TEMPLATE_ID, templateParams, PUBLIC_KEY)
+    .then(() => {
+      ElNotification({
+        title: "Success",
+        message: "Your enquiry has been submitted successfully.",
+        type: "success",
+      });
+      closeEnquire();
+    })
+    .catch((error) => {
+      console.error("EmailJS Error:", error);
+      ElNotification({
+        title: "Error",
+        message: "There was a problem submitting your enquiry. Try again.",
+        type: "error",
+      });
+    });
+}
+function loadProductData() {
+  const id = route.params.id || "commercial";
+  product.value = productMap[id] || {};
+  related.value = relatedProducts(id);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+watch(
+  () => route.params.id,
+  () => {
+    loadProductData();
+  }
+);
 onMounted(() => {
+  loadProductData();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 </script>
@@ -660,6 +530,51 @@ onMounted(() => {
 /* enquire form spacing */
 .enquire-form .el-form {
   margin-top: 0.2rem;
+}
+
+.application-areas {
+  margin-top: 1.8rem;
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .highlighted-area {
+    font-weight: 700;
+    color: #0b6cff;
+    margin-bottom: 0.6rem;
+  }
+}
+
+.el-input__inner {
+  letter-spacing: 1px;
+}
+
+/* global (main.scss) — ensures overlay always fills the viewport */
+.ee-enquire-dialog-wrapper {
+  /* this class is applied to the dialog wrapper (<div class="el-dialog__wrapper ...">) */
+  position: fixed !important;
+  inset: 0 !important; /* top:0; right:0; bottom:0; left:0 */
+  z-index: 3000 !important; /* you can raise this if needed */
+
+  /* ensure the internal modal overlay/backdrop covers entire viewport */
+  .el-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(
+      11,
+      23,
+      39,
+      0.6
+    ) !important; /* matches element-plus modal dim */
+  }
+
+  /* center the dialog box as usual (optional adjustments) */
+  .el-dialog {
+    margin: auto; /* center inside wrapper */
+    max-width: 95% !important;
+  }
 }
 
 /* Responsive tweaks */

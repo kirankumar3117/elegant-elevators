@@ -222,8 +222,8 @@ watch(
   position: absolute;
   left: 2rem;
   bottom: 2.2rem;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.36);
+  color: #282c7a;
+  background: rgba(236, 236, 236, 0.85);
   padding: 0.6rem 1rem;
   border-radius: 8px;
   font-weight: 600;

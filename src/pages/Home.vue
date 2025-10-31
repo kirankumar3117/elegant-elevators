@@ -171,21 +171,21 @@ const heroItems = [
     alt: "Elegant control panel overview",
     caption:
       "<strong>Robust Commercial Panels</strong><br/>Modular, service-friendly designs",
-    target: { type: "products" },
+    target: { type: "commercial" },
   },
   {
     image: Controller2,
     alt: "IoT elevator monitoring",
     caption:
       "<strong>Advanced IoT Panels</strong><br/>Predictive maintenance & analytics",
-    target: { type: "products" },
+    target: { type: "iot" },
   },
   {
     image: Controller3,
     alt: "Hotel lift panels",
     caption:
       "<strong>Hotel & Residential</strong><br/>Quiet & guest-friendly operation",
-    target: { type: "products" },
+    target: { type: "hotel" },
   },
 ];
 
@@ -275,7 +275,7 @@ const featured = ref([
   },
 ]);
 function onHeroImageClick(item) {
-  router.push({ path: "/products" });
+  router.push(`/products/${item.target.type}`);
 }
 </script>
 
