@@ -17,47 +17,46 @@
         <form class="contact-form" @submit.prevent="handleSubmit" novalidate>
           <div class="row two">
             <label class="field">
-              <span class="label-text">Name</span>
+              <span class="label-text">Name *</span>
               <input
                 v-model.trim="form.name"
                 type="text"
                 placeholder="Your full name"
                 required
               />
-              <small v-if="errors.name" class="error">{{ errors.name }}</small>
             </label>
 
+            <label class="field">
+              <span class="label-text">Phone *</span>
+              <input
+                v-model.trim="form.phone"
+                type="tel"
+                maxlength="10"
+                placeholder="10-digit mobile number"
+              />
+            </label>
+          </div>
+
+          <div class="row two">
             <label class="field">
               <span class="label-text">Email</span>
               <input
                 v-model.trim="form.email"
                 type="email"
                 placeholder="name@example.com"
-                required
-              />
-              <small v-if="errors.email" class="error">{{
-                errors.email
-              }}</small>
-            </label>
-          </div>
-
-          <div class="row two">
-            <label class="field">
-              <span class="label-text">Phone (optional)</span>
-              <input
-                v-model.trim="form.phone"
-                type="tel"
-                placeholder="+91 9XXXXXXXXX"
               />
             </label>
 
             <label class="field">
               <span class="label-text">Product</span>
-              <select v-model="form.type">
-                <option value="general">General enquiry</option>
-                <option value="quote">Request quote</option>
-                <option value="support">Technical support</option>
-                <option value="partner">Partnership / Distribution</option>
+              <select v-model="form.product">
+                <option disabled value="">Select Product</option>
+                <option>Commercial Lift Controller Panels</option>
+                <option>Residential Lift Controller Panels</option>
+                <option>Hydraulic Lift Controller Panels</option>
+                <option>Service Lift Controller Panels</option>
+                <option>Hotel Lift Controller Panels</option>
+                <option>IoT Elevator Control Panels</option>
               </select>
             </label>
           </div>
@@ -66,17 +65,15 @@
             <span class="label-text">Message</span>
             <textarea
               v-model.trim="form.message"
-              rows="6"
-              placeholder="Briefly describe your requirement, location, timeline..."
+              rows="5"
+              placeholder="Briefly describe your requirement..."
             ></textarea>
-            <small v-if="errors.message" class="error">{{
-              errors.message
-            }}</small>
           </label>
 
           <div class="form-actions">
             <button class="btn primary" type="submit" :disabled="sending">
-              {{ sending ? "Sending..." : "Send Message" }}
+              <span v-if="sending">Sending...</span>
+              <span v-else>Send Message</span>
             </button>
 
             <button
@@ -87,39 +84,13 @@
             >
               Reset
             </button>
-
-            <button
-              class="btn accent"
-              type="button"
-              @click="requestQuote"
-              :disabled="quoteLoading"
-            >
-              {{ quoteLoading ? "Requesting..." : "Request Quote" }}
-            </button>
-
-            <a
-              :href="brochureUrl"
-              class="download"
-              target="_blank"
-              rel="noopener"
-            >
-              ⤓ Download Brochure
-            </a>
-          </div>
-
-          <div
-            v-if="statusMessage"
-            :class="['status', statusOk ? 'ok' : 'fail']"
-            role="status"
-            aria-live="polite"
-          >
-            {{ statusMessage }}
           </div>
         </form>
 
         <p class="small-note muted">
-          This form is for general enquiries. For urgent technical support, call
-          us directly.
+          For urgent technical support, call us directly at
+          <strong>{{ phone }}</strong
+          >.
         </p>
       </section>
 
@@ -135,9 +106,6 @@
               <a class="value" :href="`tel:${phone}`">{{ phone }}</a>
               <div class="meta muted">Mon — Sat: 9:30 — 6:30</div>
             </div>
-            <button class="mini" @click="copy(phone)" aria-label="Copy phone">
-              Copy
-            </button>
           </div>
 
           <div class="contact-card">
@@ -147,9 +115,6 @@
               <a class="value" :href="`mailto:${email}`">{{ email }}</a>
               <div class="meta muted">General & Sales</div>
             </div>
-            <button class="mini" @click="copy(email)" aria-label="Copy email">
-              Copy
-            </button>
           </div>
 
           <div class="contact-card address">
@@ -164,13 +129,6 @@
                 >
               </div>
             </div>
-            <button
-              class="mini"
-              @click="copy(address)"
-              aria-label="Copy address"
-            >
-              Copy
-            </button>
           </div>
         </div>
 
@@ -183,7 +141,7 @@
           aria-label="Company location on map"
         >
           <iframe
-            title="Elegant Embedded Solutions location"
+            title="Elegant Elevators location"
             :src="mapUrl"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
@@ -200,59 +158,20 @@
         </ul>
       </aside>
     </div>
-
-    <!-- FAQ accordion -->
-    <section class="faq card" aria-labelledby="faq-heading">
-      <h2 id="faq-heading">Frequently asked questions</h2>
-
-      <div class="accordion">
-        <button class="acc-toggle" @click="toggleFaq(0)">
-          <span>What types of LED displays do you offer?</span>
-          <span class="acc-caret">{{ openFaq === 0 ? "−" : "+" }}</span>
-        </button>
-        <div v-show="openFaq === 0" class="acc-panel">
-          We offer Single Color, Multi Color, Full Color displays, LED Video
-          Walls and Flexible LED solutions for creative installations.
-        </div>
-
-        <button class="acc-toggle" @click="toggleFaq(1)">
-          <span>Do you provide installation and commissioning?</span>
-          <span class="acc-caret">{{ openFaq === 1 ? "−" : "+" }}</span>
-        </button>
-        <div v-show="openFaq === 1" class="acc-panel">
-          Yes — we provide on-site commissioning and can coordinate with local
-          installation partners to ensure correct setup and calibration.
-        </div>
-
-        <button class="acc-toggle" @click="toggleFaq(2)">
-          <span>Can I get a datasheet and technical drawings?</span>
-          <span class="acc-caret">{{ openFaq === 2 ? "−" : "+" }}</span>
-        </button>
-        <div v-show="openFaq === 2" class="acc-panel">
-          Yes — product datasheets and mechanical drawings are available. Use
-          the contact form or email to request specific datasheets.
-        </div>
-
-        <button class="acc-toggle" @click="toggleFaq(3)">
-          <span>What is the typical lead time?</span>
-          <span class="acc-caret">{{ openFaq === 3 ? "−" : "+" }}</span>
-        </button>
-        <div v-show="openFaq === 3" class="acc-panel">
-          Typical lead time is <strong>{{ defaultLeadTime }}</strong
-          >. For custom specs or larger quantities it may vary — contact us for
-          a precise schedule.
-        </div>
-      </div>
-    </section>
   </main>
 </template>
 
 <script setup>
 import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
+import emailjs from "emailjs-com";
+import { ElNotification } from "element-plus";
 
-/* --- Config / contact data --- */
+const router = useRouter();
+
+/* --- Config --- */
 const phone = "+919396671541";
-const email = "info@elegantembedded.com";
+const email = "elegantelevators2@gmail.com";
 const address = `3rd Floor, Plot No.7,
 Surana Chowrastha, Phase-2,
 IDA Cherlapally, Telangana - 500051`;
@@ -260,143 +179,105 @@ IDA Cherlapally, Telangana - 500051`;
 const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(
   address
 )}&output=embed`;
-const brochureUrl = "/datasheets/company-brochure.pdf";
-const defaultLeadTime = "4–6 weeks";
 
-/* --- Form state & validation --- */
+/* --- Form State --- */
 const form = reactive({
   name: "",
-  email: "",
   phone: "",
-  type: "general",
+  email: "",
+  product: "",
   message: "",
 });
 
-const errors = reactive({ name: "", email: "", message: "" });
 const sending = ref(false);
-const quoteLoading = ref(false);
-const statusMessage = ref("");
-const statusOk = ref(false);
 
-/* --- small helpers --- */
-function isValidEmail(v) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-}
+/* --- Helpers --- */
+const safeString = (v) => (v && v.trim() ? v.trim() : "-");
 
-function clearErrors() {
-  errors.name = "";
-  errors.email = "";
-  errors.message = "";
-}
-
-function validate() {
-  clearErrors();
-  let ok = true;
-  if (!form.name.trim()) {
-    errors.name = "Please enter your name";
-    ok = false;
+function validateForm() {
+  if (!form.name || !form.phone) {
+    ElNotification({
+      title: "Missing Details",
+      message: "Name and phone number are required.",
+      type: "warning",
+    });
+    return false;
   }
-  if (!form.email.trim()) {
-    errors.email = "Please enter an email";
-    ok = false;
-  } else if (!isValidEmail(form.email.trim())) {
-    errors.email = "Please enter a valid email address";
-    ok = false;
-  }
-  if (!form.message.trim() || form.message.trim().length < 6) {
-    errors.message = "Please provide a short message (min 6 characters)";
-    ok = false;
-  }
-  return ok;
-}
 
-/* --- actions --- */
-async function handleSubmit() {
-  statusMessage.value = "";
-  statusOk.value = false;
-
-  if (!validate()) return;
-
-  sending.value = true;
-  try {
-    // open user's mail client prefilled
-    const subject = encodeURIComponent(`Enquiry: ${form.type} — ${form.name}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\nMessage:\n${form.message}`
-    );
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-    statusMessage.value =
-      "Mail client opened — please send the message from your mail app.";
-    statusOk.value = true;
-  } catch (e) {
-    statusMessage.value =
-      "Unable to open mail client. Please email us directly.";
-    statusOk.value = false;
-  } finally {
-    sending.value = false;
-    setTimeout(() => (statusMessage.value = ""), 4500);
+  if (!/^[0-9]{10}$/.test(form.phone)) {
+    ElNotification({
+      title: "Invalid Phone Number",
+      message: "Please enter a valid 10-digit phone number.",
+      type: "error",
+    });
+    return false;
   }
+  return true;
 }
 
 function resetForm() {
   form.name = "";
-  form.email = "";
   form.phone = "";
-  form.type = "general";
+  form.email = "";
+  form.product = "";
   form.message = "";
-  clearErrors();
-  statusMessage.value = "";
-  statusOk.value = false;
 }
 
-async function requestQuote() {
-  statusMessage.value = "";
-  if (!form.name || !form.email) {
-    statusMessage.value =
-      "Please fill your name and email before requesting a quote.";
-    statusOk.value = false;
-    setTimeout(() => (statusMessage.value = ""), 3500);
-    return;
-  }
-  quoteLoading.value = true;
-  try {
-    // simulate API call
-    await new Promise((r) => setTimeout(r, 800));
-    statusMessage.value =
-      "Quote request received — our sales team will contact you shortly.";
-    statusOk.value = true;
-  } catch {
-    statusMessage.value = "Could not request quote — try again later.";
-    statusOk.value = false;
-  } finally {
-    quoteLoading.value = false;
-    setTimeout(() => (statusMessage.value = ""), 4000);
-  }
-}
+/* --- Submit: always send admin email; only send user auto-reply if email provided (per your requirement) --- */
+function handleSubmit() {
+  if (!validateForm()) return;
+  sending.value = true;
 
-/* click-to-copy helper */
-async function copy(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-    statusMessage.value = "Copied to clipboard";
-    statusOk.value = true;
-  } catch {
-    statusMessage.value = "Unable to copy";
-    statusOk.value = false;
-  } finally {
-    setTimeout(() => (statusMessage.value = ""), 1800);
-  }
-}
+  const templateParams = {
+    from_name: safeString(form.name),
+    from_phone: safeString(form.phone),
+    from_email: form.email && form.email.trim() ? form.email.trim() : "-",
+    from_company: "-", // contact form has no company field
+    product: form.product && form.product.trim() ? form.product.trim() : "-",
+    message: form.message && form.message.trim() ? form.message.trim() : "-",
+  };
 
-/* FAQ accordion state */
-const openFaq = ref(null);
-function toggleFaq(i) {
-  openFaq.value = openFaq.value === i ? null : i;
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const ADMIN_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+  // send admin email always
+  emailjs
+    .send(SERVICE_ID, ADMIN_TEMPLATE_ID, templateParams, PUBLIC_KEY)
+    .then(() => {
+      ElNotification({
+        title: "Success",
+        message: "Your message has been sent successfully!",
+        type: "success",
+      });
+
+      // if user provided an email, optionally send an auto-reply using another template (uncomment and configure if needed)
+      // if (form.email && form.email.trim()) {
+      //   emailjs.send(SERVICE_ID, import.meta.env.VITE_EMAILJS_REPLY_TEMPLATE_ID, {
+      //     to_email: form.email.trim(),
+      //     from_name: templateParams.from_name,
+      //     product: templateParams.product,
+      //   }, PUBLIC_KEY).catch(() => {/* ignore auto-reply errors */});
+      // }
+
+      resetForm();
+      setTimeout(() => router.push("/"), 1300);
+    })
+    .catch((err) => {
+      console.error("EmailJS Error:", err);
+      ElNotification({
+        title: "Error",
+        message: "Unable to send your message. Please try again later.",
+        type: "error",
+      });
+    })
+    .finally(() => {
+      sending.value = false;
+    });
 }
 </script>
 
 <style scoped lang="scss">
-/* variables (easy to change) */
 :root {
   --accent: #f7b500;
   --primary: #003c82;
@@ -507,26 +388,18 @@ textarea {
   cursor: pointer;
 }
 .btn.primary {
-  background: var(--accent);
-  color: #000;
-  box-shadow: 0 10px 30px rgba(247, 181, 0, 0.12);
+  background: #0b6cff;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(11, 108, 255, 0.2);
+  transition: all 0.3s ease;
+}
+.btn.primary:hover {
+  background: #084dc7;
 }
 .btn.ghost {
   background: transparent;
   border: 1px solid #dde9ff;
   color: var(--text);
-}
-.btn.accent {
-  background: var(--primary);
-  color: #fff;
-}
-
-/* download link */
-.download {
-  margin-left: 0.6rem;
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
 }
 
 /* status */
@@ -586,18 +459,6 @@ textarea {
   color: var(--muted);
   font-size: 0.9rem;
 }
-.contact-card .mini {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  border: none;
-  background: #eef3ff;
-  color: var(--primary);
-  padding: 0.26rem 0.45rem;
-  border-radius: 6px;
-  font-weight: 700;
-  cursor: pointer;
-}
 
 /* map */
 .divider {
@@ -633,34 +494,8 @@ textarea {
   color: var(--primary);
   text-decoration: none;
 }
-
-/* FAQ */
-.faq {
-  margin-top: 1.6rem;
-}
-.accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.acc-toggle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.85rem 1rem;
-  width: 100%;
-  border-radius: 8px;
-  background: #f8fbff;
-  border: 1px solid #e8f4ff;
-  cursor: pointer;
-  font-weight: 700;
-}
-.acc-panel {
-  padding: 0.85rem 1rem;
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #f1f5fb;
-  color: #233645;
+.quick-links a:hover {
+  color: #f7b500;
 }
 
 /* small helpers */
@@ -691,11 +526,7 @@ textarea {
     width: 36px;
     font-size: 1.25rem;
   }
-  .download {
-    display: block;
-    margin-top: 0.6rem;
-  }
-  .btn.accent {
+  .btn.primary {
     width: 100%;
     margin-top: 6px;
   }
