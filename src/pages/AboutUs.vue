@@ -55,7 +55,7 @@
           </div>
 
           <!-- clients strip -->
-          <div class="clients" aria-hidden="true">
+          <!-- <div class="clients" aria-hidden="true">
             <img
               src="https://placehold.co/120x40?text=Client+1"
               alt="client-1"
@@ -72,7 +72,7 @@
               src="https://placehold.co/120x40?text=Client+4"
               alt="client-4"
             />
-          </div>
+          </div> -->
         </div>
 
         <!-- image intentionally omitted -->

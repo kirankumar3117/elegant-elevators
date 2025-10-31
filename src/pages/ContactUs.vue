@@ -112,8 +112,22 @@
             <div class="icon" aria-hidden>✉️</div>
             <div>
               <div class="label">Email</div>
-              <a class="value" :href="`mailto:${email}`">{{ email }}</a>
-              <div class="meta muted">General & Sales</div>
+              <a
+                class="value"
+                :href="`mailto:${email}`"
+                style="margin-top: 10px"
+                >{{ email }}</a
+              >
+
+              <a
+                class="value"
+                :href="`mailto:info@elegantembedded.com`"
+                style="margin-top: 10px"
+                >info@elegantembedded.com</a
+              >
+              <div class="meta muted" style="margin-top: 10px">
+                General & Sales
+              </div>
             </div>
           </div>
 
