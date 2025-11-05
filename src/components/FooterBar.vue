@@ -9,8 +9,9 @@
           <strong>15+ years</strong> of embedded and automation expertise.
         </p>
         <p class="footer-apps">
-          Applications: Traffic Signals, Airports, Railways, Bus Stations,
-          Industry, Advertisement.
+          Applications: Commercial Buildings, Residential Complexes, Hotels &
+          Hospitality, Service / Utility Lifts, Industrial Facilities, Smart
+          Building Integrations.
         </p>
       </div>
 
