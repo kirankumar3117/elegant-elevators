@@ -316,7 +316,7 @@ function submitEnquiry() {
     from_email: safeString(form.value.email),
     from_company: safeString(form.value.company),
     product: safeString(product.value?.title || ""),
-    message: "-"
+    message: "-",
   };
 
   const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;

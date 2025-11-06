@@ -197,7 +197,7 @@ export const productMap = {
     title: "Service Lift Controller Panels",
     short: "Utility-grade panels for service/goods lifts.",
     long: "Simple, robust control units with maintenance-first design. Suitable for goods lifts, service elevators and cargo handling.",
-    image: IotController,
+    image: ServiceController,
     preview: ["https://placehold.co/1600x1000?text=Service+1"],
     category: "Service",
     available: true,
@@ -239,7 +239,7 @@ export const productMap = {
     title: "IoT Elevator Control Panels",
     short: "Smart connectivity, predictive maintenance and analytics.",
     long: "Next-generation panels with telematics and cloud connectivity for asset health monitoring and predictive alerts. Ideal for large portfolios and managed buildings.",
-    image: ServiceController,
+    image: IotController,
     preview: [
       "https://placehold.co/1600x1000?text=IoT+1",
       "https://placehold.co/1600x1000?text=IoT+2",

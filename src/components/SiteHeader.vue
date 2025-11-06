@@ -31,6 +31,12 @@
           >Products</router-link
         >
         <router-link
+          to="/gallery"
+          class="nav-link"
+          exact-active-class="router-link-active"
+          >Gallery</router-link
+        >
+        <router-link
           to="/contact"
           class="nav-link"
           exact-active-class="router-link-active"

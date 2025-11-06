@@ -53,7 +53,7 @@
       </p>
 
       <div class="grid featured-grid">
-        <article v-for="p in featured" :key="p.id" class="feat-card">
+        <article v-for="p in productMap" :key="p.id" class="feat-card">
           <div class="feat-media">
             <!-- Element Plus image: clicking opens zoom/preview -->
             <el-image
@@ -149,43 +149,36 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import ProductCard from "../components/ProductCard.vue";
 import HeroCarousel from "../components/HeroCarousel.vue";
-import Controller1 from "../assets/images/controller-1.jpg";
-import Controller2 from "../assets/images/controller-2.jpg";
-import Controller3 from "../assets/images/controller-3.jpg";
 import LiftControler from "../assets/images/lift-controller.jpg";
 import ResidencialController from "../assets/images/residencial-lift-controller.jpg";
-import HotelController from "../assets/images/hotel-lift-controller.jpg";
-import HydralicController from "../assets/images/hydralic-controller.jpg";
 import IotController from "../assets/images/iot-controller.jpg";
-import ServiceController from "../assets/images/service-controller.jpg";
 import { useRouter } from "vue-router";
+import { productMap } from "../data/productData.js";
 const router = useRouter();
 
 /* hero items remain as before */
 const heroItems = [
   {
-    image: Controller1,
-    alt: "Elegant control panel overview",
+    image: LiftControler,
+    title: "Elegant control panel overview",
     caption:
       "<strong>Robust Commercial Panels</strong><br/>Modular, service-friendly designs",
-    target: { type: "commercial" },
+    id: "commercial",
   },
   {
-    image: Controller2,
-    alt: "IoT elevator monitoring",
+    image: IotController,
+    title: "IoT elevator monitoring",
     caption:
       "<strong>Advanced IoT Panels</strong><br/>Predictive maintenance & analytics",
-    target: { type: "iot" },
+    id: "iot",
   },
   {
-    image: Controller3,
-    alt: "Hotel lift panels",
+    image: ResidencialController,
+    title: "Hotel lift panels",
     caption:
       "<strong>Hotel & Residential</strong><br/>Quiet & guest-friendly operation",
-    target: { type: "hotel" },
+    id: "hotel",
   },
 ];
 
@@ -198,82 +191,6 @@ const appAreas = [
   "Smart Building Integrations",
 ];
 
-/* FEATURED - enriched with placeholder images & bullets */
-const featured = ref([
-  {
-    id: "commercial",
-    title: "Commercial Lift controller Panels",
-    short: "Robust, modular panels — service-friendly & scalable.",
-    image: LiftControler,
-    preview: [
-      "https://placehold.co/1600x1000?text=Commercial+Panel+1",
-      "https://placehold.co/1600x1000?text=Commercial+Panel+2",
-    ],
-    features: [
-      "Modular I/O & redundancy",
-      "Advanced safety interlocks",
-      "Remote diagnostics",
-    ],
-    tag: "Popular",
-  },
-  {
-    id: "residential",
-    title: "Residential Lift controller Panels",
-    short: "Compact units for quiet and efficient residential lifts.",
-    image: ResidencialController,
-    preview: ["https://placehold.co/1600x1000?text=Residential+1"],
-    features: ["Compact footprint", "Low-noise drive", "Energy-saving modes"],
-    tag: "Compact",
-  },
-  {
-    id: "hotel",
-    title: "Hotel Lift controller Panels",
-    short: "Smooth rides and premium guest-facing interfaces.",
-    image: HotelController,
-    preview: ["https://placehold.co/1600x1000?text=Hotel+1"],
-    features: [
-      "Smooth acceleration",
-      "Guest mode features",
-      "Aesthetic faceplates",
-    ],
-    tag: "Guest-Ready",
-  },
-  {
-    id: "iot",
-    title: "Advanced IoT Elevator Control Panels",
-    short: "Smart connectivity, predictive maintenance and analytics.",
-    image: IotController,
-    features: [
-      "Remote telemetry & sensor health",
-      "Predictive alerts for bearings & motors",
-      "Cloud-based dashboard & analytics",
-    ],
-    category: "iot",
-    comingSoon: true,
-  },
-  {
-    id: "service",
-    title: "Service Lift Controller Panels",
-    short: "Rugged, utility-grade panels for service & goods lifts.",
-    image: ServiceController,
-    features: ["Simplified controls", "Maintenance mode", "Robust enclosure"],
-    category: "service",
-    comingSoon: false,
-  },
-  {
-    id: "hydraulic",
-    title: "Hydraulic Lift Controller Panels",
-    short: "Powerful control unit optimized for hydraulic drives.",
-    image: HydralicController,
-    features: [
-      "Hydraulic pump control",
-      "Pressure & safety interlocks",
-      "Durable power stage",
-    ],
-    category: "hydraulic",
-    comingSoon: false,
-  },
-]);
 function onHeroImageClick(item) {
   router.push(`/products/${item.target.type}`);
 }
