@@ -112,12 +112,12 @@
             <div class="icon" aria-hidden>✉️</div>
             <div>
               <div class="label">Email</div>
-              <a
+              <!-- <a
                 class="value"
                 :href="`mailto:${email}`"
                 style="margin-top: 10px"
                 >{{ email }}</a
-              >
+              > -->
 
               <a
                 class="value"
